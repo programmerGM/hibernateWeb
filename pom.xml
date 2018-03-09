@@ -1,14 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>HiberateRepository</groupId>
-	<artifactId>HiberateRepository</artifactId>
-	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
-
-	<name>HiberateRepository Maven Webapp</name>
-
-	<properties>
+    <groupId>com.wimbeer</groupId>
+    <artifactId>wimbeerbackend</artifactId>
+    <packaging>war</packaging>
+    <version>0.3</version>
+    <name>wimbeerbackend</name>
+  
+    <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -67,38 +67,6 @@
             <version>6.0.6</version>
         </dependency>
         
-        <!-- Criptografia SHA-256-->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>22.0</version>
-        </dependency>
-        
-        <!--JSON-->
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20170516</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.1</version>
-        </dependency>
-        
-        <!-- JavaMail -->
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.6.0</version>
-            <type>jar</type>
-        </dependency>
-        
         <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>
@@ -113,7 +81,7 @@
             <scope>test</scope>
         </dependency>
         
-        <!-- Outros -->
+        <!-- commons-lang -->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
