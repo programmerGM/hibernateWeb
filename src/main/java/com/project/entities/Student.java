@@ -20,11 +20,11 @@ public class Student extends BasicEntity {
 
     private static final long serialVersionUID = 5109956187789284163L;
 
-    @Column(length = 100, nullable = false)
-    private String nameStudant;
+    @Column(name = "name_student", length = 100, nullable = false)
+    private String nameStudent;
 
     @ManyToOne
-    @JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "fk_user_group"), nullable = false)
+    @JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "fk_student_group"), nullable = false)
     private Group group;
 
     /**
@@ -35,29 +35,29 @@ public class Student extends BasicEntity {
     /**
      * Construtor.
      * 
-     * @param nameStudant - Nome do estudante.
+     * @param nameStudent - Nome do estudante.
      */
-    public Student(String nameStudant) {
+    public Student(String nameStudent) {
 	super();
-	this.nameStudant = nameStudant;
+	this.nameStudent = nameStudent;
     }
 
     /**
-     * Get nameStudant.
+     * Get nameStudent.
      * 
      * @return String.
      */
-    public String getNameStudant() {
-	return nameStudant;
+    public String getNameStudent() {
+	return nameStudent;
     }
 
     /**
-     * Set nameStudant.
+     * Set nameStudent.
      * 
-     * @param nameStudant - Nome do estudante.
+     * @param nameStudent - Nome do estudante.
      */
-    public void setNameStudant(String nameStudant) {
-	this.nameStudant = nameStudant;
+    public void setNameStudent(String nameStudent) {
+	this.nameStudent = nameStudent;
     }
 
     /**

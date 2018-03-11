@@ -15,12 +15,12 @@ import javax.persistence.Table;
  * @version 0.1
  */
 @Entity
-@Table(name = "group")
+@Table(name = "student_group")
 public class Group extends BasicEntity {
 
     private static final long serialVersionUID = 6364586923311620003L;
 
-    @Column(length = 50, nullable = false)
+    @Column(name = "name_group", length = 50, nullable = false)
     private String nameGroup;
 
     @OneToMany(mappedBy = "group")
