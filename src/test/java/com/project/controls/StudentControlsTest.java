@@ -14,7 +14,7 @@ import com.project.entities.Group;
 import com.project.entities.Student;
 
 /**
- * Test.
+ * Test methods controls student.
  * 
  * @author Mauricio Generoso.
  * @since 14/03/2018
@@ -30,6 +30,9 @@ public class StudentControlsTest {
     public StudentControlsTest() {
     }
     
+    /**
+     * Init tests.
+     */
     @Before
     public void init() {
 	studentControl = new StudentControls();

@@ -6,7 +6,7 @@ import com.project.dao.StudentDao;
 import com.project.entities.Student;
 
 /**
- * Controles do estudante.
+ * Student controls.
  * 
  * @author Mauricio Generoso.
  * @since 14/03/2018

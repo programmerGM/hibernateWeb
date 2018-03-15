@@ -44,7 +44,7 @@ public abstract class BasicEntity implements Serializable {
     }
 
     /**
-     * hashCode()
+     * Method hashCode.
      */
     @Override
     public int hashCode() {
@@ -55,7 +55,7 @@ public abstract class BasicEntity implements Serializable {
     }
 
     /**
-     * equals()
+     * Method equals.
      */
     @Override
     public boolean equals(Object obj) {

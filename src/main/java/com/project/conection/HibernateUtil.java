@@ -29,7 +29,7 @@ public class HibernateUtil {
     }
 
     /**
-     * Método para obter conexão(sessão) com o banco de dados.
+     * Method for to get connection with database.
      *
      * @return SessionFactory
      */

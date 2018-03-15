@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -16,8 +18,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "student_group")
+@NamedQueries({
+    @NamedQuery(name = "Group.getByName",
+            query = "SELECT g FROM Group g where g.nameGroup= :nameGroup")
+    })
 public class Group extends BasicEntity {
-
+	
     private static final long serialVersionUID = 6364586923311620003L;
 
     @Column(name = "name_group", length = 50, nullable = false)

@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import com.project.entities.Student;
 
 /**
- * Classe DAO do estudante.
+ * StudentDao.
  * 
  * @author Mauricio Generoso.
  * @since 14/03/2018
@@ -16,19 +16,20 @@ import com.project.entities.Student;
 public class StudentDao extends GenericDaoAbstract<Student> {
 
     /**
-     * Consulta estudante pelo nome.
+     * Find student by name.
      *
-     * @param name - Nome do estudante.
+     * @param name
+     *            - Student name.
      * @return Student.
      */
     public Student getByName(String name) {
 	Session session = getSessionFactory().openSession();
 	session.beginTransaction();
-	Student st = null;
+	Student student = null;
 	try {
 	    Query query = session.createNamedQuery(Student.class.getSimpleName() + ".getByName");
 	    query.setParameter("nameStudent", name);
-	    st = (Student) query.getSingleResult();
+	    student = (Student) query.getSingleResult();
 	    session.getTransaction().commit();
 	} catch (Exception e) {
 	    this.error("StudentDao.getByName() - " + e.getMessage());
@@ -36,7 +37,7 @@ public class StudentDao extends GenericDaoAbstract<Student> {
 	} finally {
 	    session.close();
 	}
-	return st;
+	return student;
     }
 
 }
