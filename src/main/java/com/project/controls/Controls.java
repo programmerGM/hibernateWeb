@@ -64,7 +64,7 @@ public abstract class Controls<D extends GenericDaoAbstract, T extends BasicEnti
      * @param id - Id do Objeto a ser consultado
      * @return Retorna o Objeto consultado
      */
-    public abstract T getForId(Long id);
+    public abstract T getById(Long id);
 
     /**
      * Método para retornar lista de todos os Objetos registrado.

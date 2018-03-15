@@ -31,7 +31,7 @@ public abstract class GenericDaoAbstract<T extends BasicEntity> {
     public GenericDaoAbstract() {
 	this.sessionFactory = new HibernateUtil().getSessionFactory();
     }
-
+		
     /**
      * Retorna a fábrica de sessão.
      *
@@ -100,7 +100,7 @@ public abstract class GenericDaoAbstract<T extends BasicEntity> {
      * @param id - Id do Objeto a ser consultado
      * @return T - Objeto consultado
      */
-    public T getForId(Class<T> clazz, Long id) {
+    public T getById(Class<T> clazz, Long id) {
 	Session session = sessionFactory.openSession();
 	session.beginTransaction();
 	T obj = null;
@@ -124,13 +124,14 @@ public abstract class GenericDaoAbstract<T extends BasicEntity> {
      * @param className Nome da classe buscada
      * @return List - Lista com todos os objetos consultados.
      */
+    @SuppressWarnings("unchecked")
     public List<T> getAll(String className) {
 	Session session = sessionFactory.openSession();
 	session.beginTransaction();
 	List<T> list = null;
 	try {
 	    Query query = session.createNamedQuery(className + ".searchAll");
-	    list = (List) query.getResultList();
+	    list = (List<T>) query.getResultList();
 	} catch (Exception e) {
 	    this.error("GenericDaoAbstract.getAll() - " + className + " - " + e.getMessage());
 	} finally {

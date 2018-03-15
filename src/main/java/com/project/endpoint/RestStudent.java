@@ -1,4 +1,4 @@
-package com.project.rest;
+package com.project.endpoint;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;

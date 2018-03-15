@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.wimbeer</groupId>
-    <artifactId>wimbeerbackend</artifactId>
+    <artifactId>apistudent</artifactId>
     <packaging>war</packaging>
     <version>0.3</version>
-    <name>wimbeerbackend</name>
+    <name>apistudent</name>
   
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

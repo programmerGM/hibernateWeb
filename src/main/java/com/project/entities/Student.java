@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -16,11 +18,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "student")
+@NamedQueries({
+    @NamedQuery(name = "Student.getByName",
+            query = "SELECT s FROM Student s where s.name = :nameStudent")
+    })
 public class Student extends BasicEntity {
 
     private static final long serialVersionUID = 5109956187789284163L;
 
-    @Column(name = "name_student", length = 100, nullable = false)
+    @Column(name = "name_student", length = 100, unique = true, nullable = false)
     private String nameStudent;
 
     @ManyToOne
@@ -42,6 +48,18 @@ public class Student extends BasicEntity {
 	this.nameStudent = nameStudent;
     }
 
+    /**
+     * Construtor.
+     * 
+     * @param nameStudent - Nome do estudante.
+     * @param group = Grupo do estudante.
+     */
+    public Student(String nameStudent, Group group) {
+	super();
+	this.nameStudent = nameStudent;
+	this.group = group;
+    }
+    
     /**
      * Get nameStudent.
      * 
