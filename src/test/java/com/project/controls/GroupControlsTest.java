@@ -1,5 +1,6 @@
 package com.project.controls;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -28,7 +29,8 @@ public class GroupControlsTest {
     /**
      * Construct.
      */
-    public GroupControlsTest() {}
+    public GroupControlsTest() {
+    }
 
     /**
      * Init tests.
@@ -45,8 +47,9 @@ public class GroupControlsTest {
     public void testASave() {
 	System.out.println("testASave");
 
-	List<Group> groups = Arrays.asList(new Group("Group1"), new Group("Group2"), new Group("Group3"), new Group("Group4"));
-	
+	List<Group> groups = Arrays.asList(new Group("Group1"), new Group("Group2"), new Group("Group3"),
+		new Group("Group4"));
+
 	groups.forEach(g -> {
 	    assertTrue(groupControls.save(g));
 	});
@@ -71,16 +74,16 @@ public class GroupControlsTest {
 
 	List<Group> groups = groupControls.getAll();
 	assertNotNull(groups);
-	
-	Group group = groupControls.getById(groups.get(0).getId()); 
+
+	Group group = groupControls.getById(groups.get(0).getId());
 	assertNotNull(group);
-	
+
 	group.setNameGroup("Group1changed");
 	assertTrue(groupControls.save(group));
 	group.setNameGroup("Group1");
 	assertTrue(groupControls.save(group));
     }
-    
+
     /**
      * Test get group by id.
      */
@@ -90,34 +93,34 @@ public class GroupControlsTest {
 
 	List<Group> groups = groupControls.getAll();
 	assertNotNull(groups);
-	
-	Group group = groupControls.getById(groups.get(0).getId()); 
+
+	Group group = groupControls.getById(groups.get(0).getId());
 	assertNotNull(group);
     }
-    
+
+    /**
+     * Test get group by id.
+     */
+    @Test
+    public void testEGetByName() {
+	System.out.println("testGGetByName");
+
+	Group group = groupControls.getByName("Group1");
+	assertNotNull(group);
+	assertEquals(group.getNameGroup(), "Group1");
+    }
+
     /**
      * Test get all groups.
      */
     @Test
-    public void testEGetAll() {
+    public void testFGetAll() {
 	System.out.println("testEGetAll");
 
 	List<Group> groups = groupControls.getAll();
 	assertNotNull(groups);
     }
-    
-    
-    /**
-     * Test get group by id.
-     */
-    @Test
-    public void testFGetByName() {
-	System.out.println("testGGetByName");
 
-	Group group = groupControls.getByName("Group1"); 
-	assertNotNull(group);
-    }
-    
     /**
      * Test delete.
      */
@@ -126,12 +129,11 @@ public class GroupControlsTest {
 	System.out.println("testGDelete");
 
 	List<Group> groups = groupControls.getAll();
-	
+
 	assertNotNull(groups);
 	groups.forEach(g -> {
 	    assertTrue(groupControls.delete(g));
 	});
-    }    
-    
-    
+    }
+
 }

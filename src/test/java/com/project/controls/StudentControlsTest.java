@@ -29,13 +29,13 @@ public class StudentControlsTest {
     private StudentControls studentControls;
     private GroupControls groupControls;
     private Group group;
-    
+
     /**
      * Construct.
      */
     public StudentControlsTest() {
     }
-    
+
     /**
      * Init tests.
      */
@@ -44,11 +44,11 @@ public class StudentControlsTest {
 	studentControls = new StudentControls();
 	groupControls = new GroupControls();
 	group = new Group("TestStudent");
-	
+
 	groupControls.save(group);
 	assertNotNull(group.getId());
     }
-    
+
     /**
      * End tests.
      */
@@ -56,21 +56,22 @@ public class StudentControlsTest {
     public void end() {
 	groupControls.delete(group);
     }
-    
+
     /**
      * Test save.
      */
-    @Test	
+    @Test
     public void testASave() {
-        System.out.println("testSave");
+	System.out.println("testSave");
 
-        List<Student> students = Arrays.asList(new Student("Student1", group), new Student("Student2", group), new Student("Student3", group)); 
-        
-        students.forEach(e -> {
-            assertTrue(studentControls.save(e));
-        });
+	List<Student> students = Arrays.asList(new Student("Student1", group), new Student("Student2", group),
+		new Student("Student3", group));
+
+	students.forEach(e -> {
+	    assertTrue(studentControls.save(e));
+	});
     }
-    
+
     /**
      * Test save - duplicate.
      */
@@ -80,47 +81,77 @@ public class StudentControlsTest {
 
 	assertTrue(!studentControls.save(new Student("Student1", group)));
     }
-    
-    // HERE -----------------------------------------------
-    
+
+    /**
+     * Test update.
+     */
+    @Test
+    public void testCUpdate() {
+	System.out.println("testCUpdate");
+
+	List<Student> students = studentControls.getAll();
+	assertNotNull(students);
+
+	Student student = studentControls.getById(students.get(0).getId());
+	assertNotNull(student);
+
+	student.setNameStudent("Student1Changed");
+	assertTrue(studentControls.save(student));
+	student.setNameStudent("Student1");
+	assertTrue(studentControls.save(student));
+    }
+
+    /**
+     * Test get student by id.
+     */
+    @Test
+    public void testDGetById() {
+	System.out.println("testDGetById");
+
+	List<Student> students = studentControls.getAll();
+	assertNotNull(students);
+
+	Student student = studentControls.getById(students.get(0).getId());
+	assertNotNull(student);
+    }
+
     /**
      * Test of GetByName method.
      */
-    @Test	
-    public void testGetByName() {
-        System.out.println("testGetByName");
+    @Test
+    public void testEGetByName() {
+	System.out.println("testEGetByName");
 
-        String name = "Student";
-        Student student = studentControls.getByName(name);
-        assertEquals(student.getNameStudent(), name);
+	Student student = studentControls.getByName("Student1");
+	assertNotNull(student);
+	assertEquals(student.getNameStudent(), "Student1");
     }
-    
+
     /**
      * Test of getAll method.
      */
-    @Test	
-    public void testGetAll() {
-        System.out.println("testGetAll");
+    @Test
+    public void testFGetAll() {
+	System.out.println("testFGetAll");
 
-        List<Student> list = studentControls.getAll();
-        assertNotNull(list);
+	List<Student> list = studentControls.getAll();
+	assertNotNull(list);
     }
-    
 
     /**
      * Test of delete method.
      */
-    @Test	
-    public void testDelete() {
-        System.out.println("testDelete");
-        
-        List<Student> students = studentControls.getAll();
-        assertNotNull(students);
-        
-        students.forEach(e -> {
-            assertTrue(studentControls.delete(e));
-        });
-        
+    @Test
+    public void testGDelete() {
+	System.out.println("testGDelete");
+
+	List<Student> students = studentControls.getAll();
+	
+	assertNotNull(students);
+	students.forEach(e -> {
+	    assertTrue(studentControls.delete(e));
+	});
+
     }
-    
+
 }
