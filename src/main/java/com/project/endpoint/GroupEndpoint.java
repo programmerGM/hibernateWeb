@@ -10,6 +10,10 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class GroupEndpoint {	
 
+    @GetMapping("/teasdasda")
+    public ResponseEntity<Group> getAll(){
+	
+    }
     
     
 }
