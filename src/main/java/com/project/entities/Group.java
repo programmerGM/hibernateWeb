@@ -46,6 +46,18 @@ public class Group extends BasicEntity {
 	super();
 	this.nameGroup = nameGroup;
     }
+    
+    /**
+     * Constructor.
+     * 
+     * @param id - Id.
+     * @param nameGroup - Nome do grupo.
+     */
+    public Group(Long id, String nameGroup) {
+	super();
+	this.setId(id);
+	this.nameGroup = nameGroup;
+    }
 
     /**
      * Get nome do grupo.

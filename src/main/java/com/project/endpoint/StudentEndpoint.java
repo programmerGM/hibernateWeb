@@ -15,6 +15,6 @@ import javax.ws.rs.core.MediaType;
 @Path("v1/students")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class RestStudent {
+public class StudentEndpoint {
 
 }
