@@ -9,11 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 /**
- * Classe abstrata para permitir utilização do DAO genérico.
+ * Generic Class with ID for the entities.
  *
- * @author Mauricio Generoso
- * @since 09/08/2018
- * @version 0.1
+ * @author Mauricio Generoso.
+ * @since 09/08/2018.
+ * @version 0.1.
  */
 @MappedSuperclass
 public abstract class BasicEntity implements Serializable {
@@ -26,18 +26,18 @@ public abstract class BasicEntity implements Serializable {
     private Long id;
 
     /**
-     * Método para inserir o id.
+     * Method setId
      *
-     * @param id - Id a ser inserido.
+     * @param id - Id.
      */
     public void setId(Long id) {
         this.id = id;
 }
 
     /**
-     * Método para retornar o id das entidades herdeiras dessa classe..
+     * Method getId.
      *
-     * @return id - Id da entidade.
+     * @return id - Long.
      */
     public Long getId() {
         return this.id;

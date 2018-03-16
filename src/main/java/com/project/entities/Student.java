@@ -13,14 +13,14 @@ import javax.persistence.Table;
  * Class Student.
  * 
  * @author Mauricio Generoso.
- * @since 09/03/2018
+ * @since 09/03/2018.
  * @version 0.1
  */
 @Entity
 @Table(name = "student")
 @NamedQueries({
     @NamedQuery(name = "Student.getByName",
-            query = "SELECT s FROM Student s where s.name = :nameStudent")
+            query = "SELECT s FROM Student s where s.nameStudent = :nameStudent")
     })
 public class Student extends BasicEntity {
 

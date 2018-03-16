@@ -17,7 +17,7 @@ public class HibernateUtil {
     private final SessionFactory sessionFactory;
 
     /**
-     * Construtor.
+     * Constructor.
      */
     public HibernateUtil() {
         try {

@@ -127,7 +127,7 @@ public abstract class GenericDaoAbstract<T extends BasicEntity> {
     @SuppressWarnings("unchecked")
     public List<T> getAll(String className) {
 	Session session = sessionFactory.openSession();
-	session.beginTransaction();
+	//session.beginTransaction();
 	List<T> list = null;
 	try {
 	    Query query = session.createNamedQuery(className + ".searchAll");
@@ -135,7 +135,7 @@ public abstract class GenericDaoAbstract<T extends BasicEntity> {
 	} catch (Exception e) {
 	    this.error("GenericDaoAbstract.getAll() - " + className + " - " + e.getMessage());
 	} finally {
-	    session.getTransaction().commit();
+	    //session.getTransaction().commit();
 	    session.close();
 	}
 	return list;

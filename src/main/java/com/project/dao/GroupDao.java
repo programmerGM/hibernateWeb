@@ -1,5 +1,9 @@
 package com.project.dao;
 
+import javax.persistence.Query;
+
+import org.hibernate.Session;
+
 import com.project.entities.Group;
 import com.project.entities.Student;
 
@@ -25,7 +29,7 @@ public class GroupDao extends GenericDaoAbstract<Group> {
 	try {
 	    Query query = session.createNamedQuery(Student.class.getSimpleName() + ".getByName");
 	    query.setParameter("nameGroup", name);
-	    group = (Student) query.getSingleResult();
+	    group = (Group) query.getSingleResult();
 	    session.getTransaction().commit();
 	} catch (Exception e) {
 	    this.error("GroupDao.getByName() - " + e.getMessage());
