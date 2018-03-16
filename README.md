@@ -1,6 +1,6 @@
-## Hibernate
+## WebProject
 
-Projeto com um padrão genérico para ser usado com Hibernate. 
+Pequena applicação web com tecnologias angularJS, Jersey, JUnit, Hibernate e Mysql.
 
 * <h5>Tecnologias e conceitos utilizados e estudados</h5>
-  - Hibernate. <br />
+  - Em andamento. <br />
