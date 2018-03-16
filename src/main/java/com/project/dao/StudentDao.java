@@ -10,13 +10,13 @@ import com.project.entities.Student;
  * StudentDao.
  * 
  * @author Mauricio Generoso.
- * @since 14/03/2018
+ * @since 14/03/2018.
  * @version 0.1
  */
 public class StudentDao extends GenericDaoAbstract<Student> {
 
     /**
-     * Find student by name.
+     * Get student by name.
      *
      * @param name
      *            - Student name.

@@ -10,14 +10,14 @@ import com.project.entities.Student;
 /**
  * GroupDao.
  * 
- * @author Maurício Generoso
- * @since 15/03/2018
+ * @author Maurício Generoso.
+ * @since 15/03/2018.
  * @version 0.1
  */
 public class GroupDao extends GenericDaoAbstract<Group> {
 
     /**
-     * Find group by name.
+     * Get group by name.
      *
      * @param name - Group name.
      * @return Group.
@@ -27,7 +27,7 @@ public class GroupDao extends GenericDaoAbstract<Group> {
 	session.beginTransaction();
 	Group group = null;
 	try {
-	    Query query = session.createNamedQuery(Student.class.getSimpleName() + ".getByName");
+	    Query query = session.createNamedQuery(Group.class.getSimpleName() + ".getByName");
 	    query.setParameter("nameGroup", name);
 	    group = (Group) query.getSingleResult();
 	    session.getTransaction().commit();

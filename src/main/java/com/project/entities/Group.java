@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * Class Group.
+ * Entity Group.
  * 
  * @author Mauricio Generoso.
  * @since 09/03/2018.

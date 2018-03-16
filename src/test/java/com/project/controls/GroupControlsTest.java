@@ -14,7 +14,7 @@ import org.junit.runners.MethodSorters;
 import com.project.entities.Group;
 
 /**
- * Test Controls Group.
+ * Test GroupControls.
  * 
  * @author Maurício Generoso.
  * @version 15/03/2018.
@@ -39,11 +39,11 @@ public class GroupControlsTest {
     }
 
     /**
-     * Test of save method.
+     * Test of save.
      */
     @Test
     public void testASave() {
-	System.out.println("testSave");
+	System.out.println("testASave");
 
 	List<Group> groups = Arrays.asList(new Group("Group1"), new Group("Group2"), new Group("Group3"), new Group("Group4"));
 	
@@ -53,21 +53,21 @@ public class GroupControlsTest {
     }
 
     /**
-     * Test of save method - duplicate.
+     * Test of save - duplicate.
      */
     @Test
     public void testBSaveDuplicate() {
-	System.out.println("testSaveDuplicate");
+	System.out.println("testBSaveDuplicate");
 
 	assertTrue(!groupControls.save(new Group("Group1")));
     }
 
     /**
-     * Test of update method.
+     * Test update.
      */
     @Test
     public void testCUpdate() {
-	System.out.println("testUpdate");
+	System.out.println("testCUpdate");
 
 	List<Group> groups = groupControls.getAll();
 	assertNotNull(groups);
@@ -82,11 +82,48 @@ public class GroupControlsTest {
     }
     
     /**
-     * Test of delete method.
+     * Test get group by id.
      */
     @Test
-    public void testDDelete() {
-	System.out.println("testDelete");
+    public void testDGetById() {
+	System.out.println("testDGetById");
+
+	List<Group> groups = groupControls.getAll();
+	assertNotNull(groups);
+	
+	Group group = groupControls.getById(groups.get(0).getId()); 
+	assertNotNull(group);
+    }
+    
+    /**
+     * Test get all groups.
+     */
+    @Test
+    public void testEGetAll() {
+	System.out.println("testEGetAll");
+
+	List<Group> groups = groupControls.getAll();
+	assertNotNull(groups);
+    }
+    
+    
+    /**
+     * Test get group by id.
+     */
+    @Test
+    public void testFGetByName() {
+	System.out.println("testGGetByName");
+
+	Group group = groupControls.getByName("Group1"); 
+	assertNotNull(group);
+    }
+    
+    /**
+     * Test delete.
+     */
+    @Test
+    public void testGDelete() {
+	System.out.println("testGDelete");
 
 	List<Group> groups = groupControls.getAll();
 	

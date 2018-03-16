@@ -6,10 +6,10 @@ import com.project.dao.GroupDao;
 import com.project.entities.Group;
 
 /**
- * Class group control.
+ * GroupControls.
  * 
- * @author Maurício Generoso
- * @since 15/03/2018
+ * @author Maurício Generoso.
+ * @since 15/03/2018.
  * @version 0.1
  */
 public class GroupControls extends Controls<GroupDao, Group> {
@@ -38,14 +38,14 @@ public class GroupControls extends Controls<GroupDao, Group> {
     }
 
     /**
-     * Find group by name group.
+     * Get group by name group.
      * 
      * @param nameGroup
      *            - Name group.
      * @return Group.
      */
     public Group getByName(String nameGroup) {
-	return null;
+	return getDao().getByName(nameGroup);
     }
 
 }

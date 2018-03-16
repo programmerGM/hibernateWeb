@@ -7,22 +7,28 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import com.project.entities.Group;
 import com.project.entities.Student;
 
 /**
- * Test methods controls student.
+ * Test methods of controls student.
  * 
  * @author Mauricio Generoso.
  * @since 14/03/2018
  * @version 0.1
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class StudentControlsTest {
 
-    private StudentControls studentControl;
+    private StudentControls studentControls;
+    private GroupControls groupControls;
+    private Group group;
     
     /**
      * Construct.
@@ -35,23 +41,47 @@ public class StudentControlsTest {
      */
     @Before
     public void init() {
-	studentControl = new StudentControls();
+	studentControls = new StudentControls();
+	groupControls = new GroupControls();
+	group = new Group("TestStudent");
+	
+	groupControls.save(group);
+	assertNotNull(group.getId());
     }
     
     /**
-     * Test of save method.
+     * End tests.
+     */
+    @After
+    public void end() {
+	groupControls.delete(group);
+    }
+    
+    /**
+     * Test save.
      */
     @Test	
-    public void testSave() {
+    public void testASave() {
         System.out.println("testSave");
 
-        Group group = new Group("grupo junit");
-        List<Student> students = Arrays.asList(new Student("Aluno1", group), new Student("Aluno2", group), new Student("Aluno3", group)); 
+        List<Student> students = Arrays.asList(new Student("Student1", group), new Student("Student2", group), new Student("Student3", group)); 
         
         students.forEach(e -> {
-            assertTrue(studentControl.save(e));
+            assertTrue(studentControls.save(e));
         });
     }
+    
+    /**
+     * Test save - duplicate.
+     */
+    @Test
+    public void testBSaveDuplicate() {
+	System.out.println("testSaveDuplicate");
+
+	assertTrue(!studentControls.save(new Student("Student1", group)));
+    }
+    
+    // HERE -----------------------------------------------
     
     /**
      * Test of GetByName method.
@@ -61,7 +91,7 @@ public class StudentControlsTest {
         System.out.println("testGetByName");
 
         String name = "Student";
-        Student student = studentControl.getByName(name);
+        Student student = studentControls.getByName(name);
         assertEquals(student.getNameStudent(), name);
     }
     
@@ -72,7 +102,7 @@ public class StudentControlsTest {
     public void testGetAll() {
         System.out.println("testGetAll");
 
-        List<Student> list = studentControl.getAll();
+        List<Student> list = studentControls.getAll();
         assertNotNull(list);
     }
     
@@ -84,11 +114,11 @@ public class StudentControlsTest {
     public void testDelete() {
         System.out.println("testDelete");
         
-        List<Student> students = studentControl.getAll();
+        List<Student> students = studentControls.getAll();
         assertNotNull(students);
         
         students.forEach(e -> {
-            assertTrue(studentControl.delete(e));
+            assertTrue(studentControls.delete(e));
         });
         
     }
