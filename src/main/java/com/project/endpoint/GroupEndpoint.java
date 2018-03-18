@@ -16,9 +16,7 @@ import javax.ws.rs.core.Response.Status;
 import com.project.controls.GroupControls;
 import com.project.entities.Group;
 
-@Path("/v1")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+@Path("/teste")
 public class GroupEndpoint {	
 
     private static final String PATH = "/groups";
@@ -34,33 +32,34 @@ public class GroupEndpoint {
     }
 
     @GET
-    @Path(PATH)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(){
-	return Response.status(Status.OK).entity("Hello World").build();
+	return Response.status(Status.OK).entity(new Group("Test")).build();
     }
     
-    @GET
-    @Path(PATH + "/{id}")
-    public Response getById(@PathParam("id") Long id){
-	return null;
-    }
-    
-    @POST
-    @Path(PATH)
-    public Response save(@Valid Group group){
-	return null;
-    }
-    
-    @PUT
-    @Path(PATH)
-    public Response update(@Valid Group group){
-	return null;
-    }
-    
-    @DELETE
-    @Path(PATH + "/{id}")
-    public Response delete(@PathParam("id") Long id){
-	return null;
-    }
+//    @GET
+//    @Path(PATH + "/{id}")
+//    public Response getById(@PathParam("id") Long id){
+//	return null;
+//    }
+//    
+//    @POST
+//    @Path(PATH)
+//    public Response save(@Valid Group group){
+//	return null;
+//    }
+//    
+//    @PUT
+//    @Path(PATH)
+//    public Response update(@Valid Group group){
+//	return null;
+//    }
+//    
+//    @DELETE
+//    @Path(PATH + "/{id}")
+//    public Response delete(@PathParam("id") Long id){
+//	return null;
+//    }
     
 }

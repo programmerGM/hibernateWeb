@@ -4,31 +4,25 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 	<welcome-file-list>
-		<welcome-file>/index.jsp</welcome-file>
+		<welcome-file>/index.html</welcome-file>
 	</welcome-file-list>
+	
 	<servlet>
 		<servlet-name>jersey-serlvet</servlet-name>
 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-		<init-param>
-			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>com.project.endpointt</param-value>
-		</init-param>
-		<init-param>
-			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
+		
+<!-- 		<init-param> -->
+<!-- 			<param-name>javax.ws.rs.Application</param-name> -->
+<!-- 			<param-value>com.project.MyApplication</param-value> -->
+<!-- 		</init-param> -->
+<!-- 		<init-param> -->
+<!-- 			<param-name>jersey.config.server.provider.packages</param-name> -->
+<!-- 			<param-value>com.project.endpoint</param-value> -->
+<!-- 		</init-param> -->
 	</servlet>
+	
 	<servlet-mapping>
-		<servlet-name>jersey-serlvet</servlet-name>
+		<servlet-name>jersey-servlet</servlet-name>
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
-	<error-page>
-		<exception-type>java.lang.Exception</exception-type>
-		<location>/padrao/erro.html</location>
-	</error-page>
-	<error-page>
-		<error-code>404</error-code>
-		<location>/padrao/404.html</location>
-	</error-page>
 </web-app>

@@ -22,51 +22,51 @@ import com.project.entities.Student;
  * @since 09/03/2018
  * @version 0.1
  */	
-@Path("/v1")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+//@Path("/v1")
+//@Consumes(MediaType.APPLICATION_JSON)
+//@Produces(MediaType.APPLICATION_JSON)
 public class StudentEndpoint {
 
-    private static final String PATH = "/students";
-    
-    private StudentControls studentsControls;
-    
-    /**
-     * Construct.
-     */
-    public StudentEndpoint () {
-	super();
-	this.studentsControls = studentsControls;
-    }
-
-    @GET
-    @Path(PATH)
-    public Response getAll(){
-	return null;
-    }
-    
-    @GET
-    @Path(PATH + "/{id}")
-    public Response getById(@PathParam("id") Long id){
-	return null;
-    }
-    
-    @POST
-    @Path(PATH)
-    public Response save(@Valid Student student){	
-	return null;
-    }
-    
-    @PUT
-    @Path(PATH)
-    public Response update(@Valid Student student){
-	return null;
-    }
-    
-    @DELETE
-    @Path(PATH + "/{id}")
-    public Response delete(@PathParam("id") Long id){
-	return null;
-    }
+//    private static final String PATH = "/students";
+//    
+//    private StudentControls studentsControls;
+//    
+//    /**
+//     * Construct.
+//     */
+//    public StudentEndpoint () {
+//	super();
+//	this.studentsControls = studentsControls;
+//    }
+//
+//    @GET
+//    @Path(PATH)
+//    public Response getAll(){
+//	return null;
+//    }
+//    
+//    @GET
+//    @Path(PATH + "/{id}")
+//    public Response getById(@PathParam("id") Long id){
+//	return null;
+//    }
+//    
+//    @POST
+//    @Path(PATH)
+//    public Response save(@Valid Student student){	
+//	return null;
+//    }
+//    
+//    @PUT
+//    @Path(PATH)
+//    public Response update(@Valid Student student){
+//	return null;
+//    }
+//    
+//    @DELETE
+//    @Path(PATH + "/{id}")
+//    public Response delete(@PathParam("id") Long id){
+//	return null;
+//    }
     
 }
