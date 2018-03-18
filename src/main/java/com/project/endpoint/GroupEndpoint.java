@@ -11,6 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.project.controls.GroupControls;
 import com.project.entities.Group;
@@ -35,7 +36,7 @@ public class GroupEndpoint {
     @GET
     @Path(PATH)
     public Response getAll(){
-	return null;
+	return Response.status(Status.OK).entity("Hello World").build();
     }
     
     @GET
