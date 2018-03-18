@@ -1,5 +1,7 @@
 package com.project.endpoint;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -14,52 +16,85 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.project.controls.GroupControls;
+import com.project.endpoint.constants.Paths;
 import com.project.entities.Group;
 
-@Path("/teste")
-public class GroupEndpoint {	
+@Path(Paths.V1)
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public class GroupEndpoint {
 
-    private static final String PATH = "/groups";
-    
     private GroupControls groupControls;
-    
+
     /**
      * Construct.
      */
     public GroupEndpoint() {
-	super();
-	this.groupControls = groupControls;
+	this.groupControls = new GroupControls();
     }
 
+    /**
+     * Get all groups.
+     * 
+     * @return
+     */
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll(){
-	return Response.status(Status.OK).entity(new Group("Test")).build();
+    @Path(Paths.GROUPS)
+    public Response getAll() {
+
+	List<Group> groups = groupControls.getAll();
+	if (groups == null || (groups != null && groups.isEmpty())) { 
+	    return Response.status(Status.NOT_FOUND).build(); 
+	}
+	return Response.status(Status.OK).entity(groups).build();
     }
-    
-//    @GET
-//    @Path(PATH + "/{id}")
-//    public Response getById(@PathParam("id") Long id){
-//	return null;
-//    }
-//    
-//    @POST
-//    @Path(PATH)
-//    public Response save(@Valid Group group){
-//	return null;
-//    }
-//    
-//    @PUT
-//    @Path(PATH)
-//    public Response update(@Valid Group group){
-//	return null;
-//    }
-//    
-//    @DELETE
-//    @Path(PATH + "/{id}")
-//    public Response delete(@PathParam("id") Long id){
-//	return null;
-//    }
-    
+
+    /**
+     * Get group by id.
+     * 
+     * @param id - Id.
+     * @return Response.
+     */
+    @GET
+    @Path(Paths.GROUPS + "/{id}")
+    public Response getById(@PathParam("id") Long id) {
+	return null;
+    }
+
+    /**
+     * Save new group.
+     * 
+     * @param group - Group.
+     * @return Response.
+     */
+    @POST
+    @Path(Paths.GROUPS)
+    public Response save(@Valid Group group) {
+	return Response.status(Status.CREATED).entity(groupControls.save(group)).build();
+    }
+
+    /**
+     * Update Group.
+     * 
+     * @param group - Group.
+     * @return Response.
+     */
+    @PUT
+    @Path(Paths.GROUPS)
+    public Response update(@Valid Group group) {
+	return null;
+    }
+
+    /**
+     * Delete group.
+     * 
+     * @param id - Id.
+     * @return Response.
+     */
+    @DELETE
+    @Path(Paths.GROUPS + "/{id}")
+    public Response delete(@PathParam("id") Long id) {
+	return null;
+    }
+
 }

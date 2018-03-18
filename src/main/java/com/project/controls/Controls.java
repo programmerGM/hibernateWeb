@@ -16,6 +16,7 @@ import com.project.entities.BasicEntity;
  * @since 09/03/2018.
  * @version 0.1
  */
+@SuppressWarnings("rawtypes")
 public abstract class Controls<D extends GenericDaoAbstract, T extends BasicEntity> {
 
     private final D dao;
@@ -37,6 +38,7 @@ public abstract class Controls<D extends GenericDaoAbstract, T extends BasicEnti
      *            - Objeto a ser salvo.
      * @return boolean - True em caso de sucesso e false em caso de falha.
      */
+    @SuppressWarnings("unchecked")
     public boolean save(T t) {
 	return getDao().save(t);
     }
@@ -48,6 +50,7 @@ public abstract class Controls<D extends GenericDaoAbstract, T extends BasicEnti
      *            - Objeto a ser removido.
      * @return boolean - True em caso de sucesso e false em caso de falha.
      */
+    @SuppressWarnings("unchecked")
     public boolean delete(T t) {
 	return getDao().delete(t);
     }

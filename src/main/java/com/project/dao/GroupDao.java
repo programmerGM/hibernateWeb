@@ -5,7 +5,6 @@ import javax.persistence.Query;
 import org.hibernate.Session;
 
 import com.project.entities.Group;
-import com.project.entities.Student;
 
 /**
  * GroupDao.
@@ -33,7 +32,7 @@ public class GroupDao extends GenericDaoAbstract<Group> {
 	    session.getTransaction().commit();
 	} catch (Exception e) {
 	    this.error("GroupDao.getByName() - " + e.getMessage());
-	    session.getTransaction().rollback();
+	    session.getTransaction(	).rollback();
 	} finally {
 	    session.close();
 	}
