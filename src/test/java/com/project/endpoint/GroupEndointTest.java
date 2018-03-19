@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.client.Entity;
@@ -19,6 +20,9 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.endpoint.constants.Paths;
 import com.project.entities.Group;
 
@@ -41,7 +45,7 @@ public class GroupEndointTest extends JerseyTest {
     public Application configure() {
 	enable(TestProperties.LOG_TRAFFIC);
 	enable(TestProperties.DUMP_ENTITY);
-	return new ResourceConfig(GroupEndpoint.class).register(GroupEndpoint.class);
+	return new ResourceConfig(GroupEndpoint.class);
     }
 
     /**
@@ -62,9 +66,12 @@ public class GroupEndointTest extends JerseyTest {
 
     /**
      * Test create Group.
+     * @throws IOException 
+     * @throws JsonMappingException 
+     * @throws JsonParseException 
      */
     @Test
-    public void testBPostSave() {
+    public void testBPostSave() throws JsonParseException, JsonMappingException, IOException {
 	System.out.println("testAPostSave");
 
 	Group group = new Group("Group Test");
@@ -72,7 +79,7 @@ public class GroupEndointTest extends JerseyTest {
 
 	assertEquals("Should return status 201", 201, output.getStatus());
 	assertNotNull("Should return notification", output.getEntity());
-	assertTrue(((Group) output.getEntity()) instanceof Group);
+	assertTrue((new ObjectMapper().readValue(output.readEntity(String.class), Group.class)) instanceof Group);
     }
 
     //    /**

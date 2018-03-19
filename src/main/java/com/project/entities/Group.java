@@ -9,6 +9,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Entity Group.
  * 
@@ -29,6 +31,7 @@ public class Group extends BasicEntity {
     @Column(name = "name_group", length = 50, unique = true, nullable = false)
     private String nameGroup;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "group")
     private List<Student> student;
 

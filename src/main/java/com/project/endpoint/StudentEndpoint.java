@@ -23,7 +23,7 @@ import com.project.entities.Student;
  * @since 09/03/2018
  * @version 0.1
  */
-@Path(Paths.V1)
+@Path(Paths.STUDENTS)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class StudentEndpoint {
@@ -38,31 +38,28 @@ public class StudentEndpoint {
     }
 
     @GET
-    @Path(Paths.STUDENTS)
     public Response getAll() {
 	return null;
     }
 
     @GET
-    @Path(Paths.STUDENTS + "/{id}")
+    @Path("/{id}")
     public Response getById(@PathParam("id") Long id) {
 	return null;
     }
 
     @POST
-    @Path(Paths.STUDENTS)
     public Response save(@Valid Student student) {
 	return null;
     }
 
     @PUT
-    @Path(Paths.STUDENTS)
     public Response update(@Valid Student student) {
 	return null;
     }
 
     @DELETE
-    @Path(Paths.STUDENTS + "/{id}")
+    @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
 	return null;
     }

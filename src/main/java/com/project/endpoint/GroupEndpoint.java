@@ -11,6 +11,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -19,7 +20,7 @@ import com.project.controls.GroupControls;
 import com.project.endpoint.constants.Paths;
 import com.project.entities.Group;
 
-@Path(Paths.V1)
+@Path(Paths.GROUPS)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class GroupEndpoint {
@@ -36,16 +37,14 @@ public class GroupEndpoint {
     /**
      * Get all groups.
      * 
-     * @return
+     * @return Response.
      */
     @GET
-    @Path(Paths.GROUPS)
     public Response getAll() {
 
 	List<Group> groups = groupControls.getAll();
-	if (groups == null || (groups != null && groups.isEmpty())) { 
-	    return Response.status(Status.NOT_FOUND).build(); 
-	}
+	if (groups == null
+		|| (groups != null && groups.isEmpty())) { return Response.status(Status.NOT_FOUND).build(); }
 	return Response.status(Status.OK).entity(groups).build();
     }
 
@@ -56,9 +55,12 @@ public class GroupEndpoint {
      * @return Response.
      */
     @GET
-    @Path(Paths.GROUPS + "/{id}")
+    @Path("/{id}")
     public Response getById(@PathParam("id") Long id) {
-	return null;
+	if(!verifyExistsGroup(id)) {
+	    return Response.status(Status.NOT_FOUND).build();
+	}
+	return Response.status(Status.OK).entity(groupControls.getById(id)).build();
     }
 
     /**
@@ -68,9 +70,11 @@ public class GroupEndpoint {
      * @return Response.
      */
     @POST
-    @Path(Paths.GROUPS)
     public Response save(@Valid Group group) {
-	return Response.status(Status.CREATED).entity(groupControls.save(group)).build();
+	if (groupControls.save(group)) {
+	    return Response.status(Status.CREATED).entity(group).build();
+	}
+	throw new WebApplicationException("Error inserting new group.");
     }
 
     /**
@@ -80,9 +84,11 @@ public class GroupEndpoint {
      * @return Response.
      */
     @PUT
-    @Path(Paths.GROUPS)
     public Response update(@Valid Group group) {
-	return null;
+	if(!verifyExistsGroup(group.getId())) {
+	    return Response.status(Status.NOT_FOUND).build();
+	}
+	return Response.status(Status.ACCEPTED).entity(groupControls.save(group)).build();
     }
 
     /**
@@ -92,9 +98,25 @@ public class GroupEndpoint {
      * @return Response.
      */
     @DELETE
-    @Path(Paths.GROUPS + "/{id}")
+    @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
-	return null;
+	if(!verifyExistsGroup(id)) {
+	    return Response.status(Status.NOT_FOUND).build();
+	}
+	if(groupControls.delete(groupControls.getById(id))) {
+	    return Response.status(Status.NO_CONTENT).build();
+	}
+	return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+    }
+
+    /**
+     * Verify exists group.
+     * 
+     * @param id - Id.
+     * @return boolean.
+     */
+    private boolean verifyExistsGroup(Long id) {
+	return groupControls.getById(id) == null;
     }
 
 }
