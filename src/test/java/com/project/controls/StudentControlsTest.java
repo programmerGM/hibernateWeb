@@ -33,8 +33,7 @@ public class StudentControlsTest {
     /**
      * Construct.
      */
-    public StudentControlsTest() {
-    }
+    public StudentControlsTest() {}
 
     /**
      * Init tests.
@@ -47,14 +46,6 @@ public class StudentControlsTest {
 
 	groupControls.save(group);
 	assertNotNull(group.getId());
-    }
-
-    /**
-     * End tests.
-     */
-    @After
-    public void end() {
-	groupControls.delete(group);
     }
 
     /**
@@ -146,12 +137,19 @@ public class StudentControlsTest {
 	System.out.println("testGDelete");
 
 	List<Student> students = studentControls.getAll();
-	
+
 	assertNotNull(students);
 	students.forEach(e -> {
 	    assertTrue(studentControls.delete(e));
 	});
+    }
 
+    /**
+     * End tests.
+     */
+    @After
+    public void end() {
+	groupControls.delete(group);
     }
 
 }

@@ -43,8 +43,9 @@ public class GroupEndpoint {
     public Response getAll() {
 
 	List<Group> groups = groupControls.getAll();
-	if (groups == null
-		|| (groups != null && groups.isEmpty())) { return Response.status(Status.NOT_FOUND).build(); }
+	if (groups == null || (groups != null && groups.isEmpty())) { 
+	    throw new WebApplicationException("There are no groups.", Status.NOT_FOUND); 
+	 }
 	return Response.status(Status.OK).entity(groups).build();
     }
 
@@ -58,11 +59,28 @@ public class GroupEndpoint {
     @Path("/{id}")
     public Response getById(@PathParam("id") Long id) {
 	if(!verifyExistsGroup(id)) {
-	    return Response.status(Status.NOT_FOUND).build();
+	    throw new WebApplicationException("Group Not found with id: " + id, Status.NOT_FOUND);
 	}
 	return Response.status(Status.OK).entity(groupControls.getById(id)).build();
     }
 
+    /**
+     * Get group by name.
+     * 
+     * @param name - Name.
+     * @return Response.
+     */
+    @GET
+    @Path("/name/{name}")
+    public Response getByName(@PathParam("name") String name) {
+	
+	Group group = groupControls.getByName(name);
+	if (group != null) {
+	    return Response.status(Status.OK).entity(group).build();
+	}
+	throw new WebApplicationException("Group Not found with name: " + name, Status.NOT_FOUND);
+    }
+    
     /**
      * Save new group.
      * 
@@ -71,10 +89,18 @@ public class GroupEndpoint {
      */
     @POST
     public Response save(@Valid Group group) {
+	if (group.getId() != null) {
+	    throw new WebApplicationException("Group with Id: " + group.getId(), Status.BAD_REQUEST);
+	}
+	
+	if (groupControls.getByName(group.getNameGroup()) != null) {
+	    throw new WebApplicationException("Always exists group with that name.", Status.CONFLICT);
+	}
+	
 	if (groupControls.save(group)) {
 	    return Response.status(Status.CREATED).entity(group).build();
 	}
-	throw new WebApplicationException("Error inserting new group.");
+	throw new WebApplicationException("Error inserting new group.", Status.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -85,10 +111,18 @@ public class GroupEndpoint {
      */
     @PUT
     public Response update(@Valid Group group) {
-	if(!verifyExistsGroup(group.getId())) {
-	    return Response.status(Status.NOT_FOUND).build();
+	if(group.getId() == null || !verifyExistsGroup(group.getId())) {
+	    throw new WebApplicationException("Group Not found with id: " + group.getId(), Status.BAD_REQUEST);
 	}
-	return Response.status(Status.ACCEPTED).entity(groupControls.save(group)).build();
+	
+	if (groupControls.getByName(group.getNameGroup()) != null) {
+	    throw new WebApplicationException("Always exists group with that name.", Status.CONFLICT);
+	}
+	
+	if (groupControls.save(group)) {
+	    return Response.status(Status.ACCEPTED).entity(group).build();
+	}
+	throw new WebApplicationException("Error updating group.", Status.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -101,12 +135,12 @@ public class GroupEndpoint {
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
 	if(!verifyExistsGroup(id)) {
-	    return Response.status(Status.NOT_FOUND).build();
+	    throw new WebApplicationException("Group Not found with id: " + id, Status.NOT_FOUND);
 	}
 	if(groupControls.delete(groupControls.getById(id))) {
 	    return Response.status(Status.NO_CONTENT).build();
 	}
-	return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+	throw new WebApplicationException("Error deleting group.", Status.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -116,7 +150,7 @@ public class GroupEndpoint {
      * @return boolean.
      */
     private boolean verifyExistsGroup(Long id) {
-	return groupControls.getById(id) == null;
+	return groupControls.getById(id) != null;
     }
 
 }

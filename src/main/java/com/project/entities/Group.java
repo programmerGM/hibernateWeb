@@ -46,7 +46,6 @@ public class Group extends BasicEntity {
      * @param nameGroup - Nome do grupo.
      */
     public Group(String nameGroup) {
-	super();
 	this.nameGroup = nameGroup;
     }
     
@@ -57,7 +56,6 @@ public class Group extends BasicEntity {
      * @param nameGroup - Nome do grupo.
      */
     public Group(Long id, String nameGroup) {
-	super();
 	this.setId(id);
 	this.nameGroup = nameGroup;
     }

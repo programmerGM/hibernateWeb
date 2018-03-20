@@ -5,14 +5,15 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
-import org.glassfish.jersey.client.internal.HttpUrlConnector;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.TestProperties;
@@ -49,70 +50,194 @@ public class GroupEndointTest extends JerseyTest {
     }
 
     /**
-     * Delete all groups.
+     * Delete all groups and test get all groups.
+     * 
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
      */
     @Test
-    public void testADelete() {
-	Response output = target(PATH_GROUPS).request().get(); 
-	
-	List<Group> list = (List<Group>) output.getEntity();
-	
-	output = target("/groups/1").request().delete();
-	assertEquals("Should return status 204", 204, output.getStatus());
-	
-	output = target(PATH_GROUPS).request().get(); 
-	assertEquals("Should return status 404", 404, output.getStatus());
+    public void testADelete() throws JsonParseException, JsonMappingException, IOException {
+	System.out.println("testADelete");
+
+	Response response = target(PATH_GROUPS).request().get();
+	if (response.getStatus() == Status.OK.getStatusCode()) {
+	    String listString = response.readEntity(String.class);
+	    List<Group> list = Arrays.asList(new ObjectMapper().readValue(listString, Group[].class));
+
+	    assertNotNull(list);
+	    list.forEach(g -> {
+		Response resp = target(PATH_GROUPS + "/" + g.getId()).request().delete();
+		assertEquals("Should return status 204", Status.NO_CONTENT.getStatusCode(), resp.getStatus());
+	    });
+	}
+	response = target(PATH_GROUPS).request().get();
+	assertEquals("Should return status 404", Status.NOT_FOUND.getStatusCode(), response.getStatus());
     }
 
     /**
      * Test create Group.
-     * @throws IOException 
-     * @throws JsonMappingException 
-     * @throws JsonParseException 
+     * 
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
      */
     @Test
     public void testBPostSave() throws JsonParseException, JsonMappingException, IOException {
-	System.out.println("testAPostSave");
+	System.out.println("testBPostSave");
 
 	Group group = new Group("Group Test");
-	Response output = target(PATH_GROUPS).request().post(Entity.entity(group, MediaType.APPLICATION_JSON));
+	Response response = target(PATH_GROUPS).request().post(Entity.entity(group, MediaType.APPLICATION_JSON));
 
-	assertEquals("Should return status 201", 201, output.getStatus());
-	assertNotNull("Should return notification", output.getEntity());
-	assertTrue((new ObjectMapper().readValue(output.readEntity(String.class), Group.class)) instanceof Group);
+	assertEquals("Should return status 201", 201, response.getStatus());
+	assertNotNull("Should return notification", response.getEntity());
+	assertTrue((new ObjectMapper().readValue(response.readEntity(String.class), Group.class)) instanceof Group);
     }
 
-    //    /**
-    //     * Test create Group - Duplicate.
-    //     */
-    //    @Test
-    //    public void testBPostSaveDuplicate() {
-    //	System.out.println("testAPostSave");
-    //	
-    //	Group group = new Group("Group Test");
-    //	Response output = target(PATH).request().post(Entity.entity(group, MediaType.APPLICATION_JSON));
-    //
-    //	assertEquals("Should return status 209", 209, output.getStatus());
-    //    }
+    /**
+     * Test create Group - With id.
+     */
+    @Test
+    public void testCPostSaveWithId() {
+	System.out.println("testCPostSaveWithId");
 
-    //    @Test
-    //    public void testCFetchAll() {
-    //	Response output = target("/groups").request().get();
-    //	assertEquals("should return status 200", 200, output.getStatus());
-    //	assertNotNull("Should return list", output.getEntity());
-    //    }
-    //
-    //    @Test
-    //    public void testUpdate() {
-    //	Group group = new Group(1L, "Group Test");
-    //	Response output = target("/groups").request().put(Entity.entity(group, MediaType.APPLICATION_JSON));
-    //	assertEquals("Should return status 204", 204, output.getStatus());
-    //    }
-    //
-    //    @Test
-    //    public void testDelete() {
-    //	Response output = target("/groups/1").request().delete();
-    //	assertEquals("Should return status 204", 204, output.getStatus());
-    //    }
+	Group group = new Group(1L, "Group Test");
+	Response response = target(PATH_GROUPS).request().post(Entity.entity(group, MediaType.APPLICATION_JSON));
+	assertEquals("Should return status 400", Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+    }
+
+    /**
+     * Test create Group - Duplicate.
+     */
+    @Test
+    public void testDPostSaveDuplicate() {
+	System.out.println("testDPostSaveDuplicate");
+
+	Group group = new Group("Group Test");
+	Response response = target(PATH_GROUPS).request().post(Entity.entity(group, MediaType.APPLICATION_JSON));
+	assertEquals("Should return status 209", Status.CONFLICT.getStatusCode(), response.getStatus());
+    }
+
+    /**
+     * Test Update without id.
+     */
+    @Test
+    public void testEUpdateWithoutId() {
+	System.out.println("testEUpdateWithoutId");
+
+	Group group = new Group("Group Test");
+	Response response = target(PATH_GROUPS).request().put(Entity.entity(group, MediaType.APPLICATION_JSON));
+	assertEquals("Should return status 400", Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+    }
+
+    /**
+     * Test Update not found.
+     */
+    @Test
+    public void testFUpdateNotFound() {
+	System.out.println("testFUpdateNotFound");
+
+	Group group = new Group(-1l, "Group Test");
+	Response response = target(PATH_GROUPS).request().put(Entity.entity(group, MediaType.APPLICATION_JSON));
+	assertEquals("Should return status 400", Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+    }
+
+    /**
+     * Test Update duplicate.
+     * 
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
+     */
+    @Test
+    public void testGUpdateDuplicate() throws JsonParseException, JsonMappingException, IOException {
+	System.out.println("testGUpdateDuplicate");
+
+	Response response = target(PATH_GROUPS + "/name/Group Test").request().get();
+	assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
+	Group group = new ObjectMapper().readValue(response.readEntity(String.class), Group.class);
+	assertNotNull(group);
+
+	response = target(PATH_GROUPS).request().put(Entity.entity(group, MediaType.APPLICATION_JSON));
+	assertEquals("Should return status 409", Status.CONFLICT.getStatusCode(), response.getStatus());
+    }
+
+    /**
+     * Test Update and get by name.
+     * 
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
+     */
+    @Test
+    public void testHUpdate() throws JsonParseException, JsonMappingException, IOException {
+	System.out.println("testHUpdate");
+
+	Response response = target(PATH_GROUPS + "/name/Group Test").request().get();
+	assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
+	Group group = new ObjectMapper().readValue(response.readEntity(String.class), Group.class);
+	assertNotNull(group);
+
+	group.setNameGroup("Group Teste changed");
+	response = target(PATH_GROUPS).request().put(Entity.entity(group, MediaType.APPLICATION_JSON));
+
+	assertEquals("Should return status 209", Status.ACCEPTED.getStatusCode(), response.getStatus());
+    }
+
+    /**
+     * Test Update and get by name.
+     * 
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
+     */
+    @Test
+    public void testIGet() throws JsonParseException, JsonMappingException, IOException {
+	System.out.println("testIGet");
+
+	Response response = target(PATH_GROUPS + "/name/Group Teste changed").request().get();
+	assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
+	Group group = new ObjectMapper().readValue(response.readEntity(String.class), Group.class);
+	assertNotNull(group);
+
+	response = target(PATH_GROUPS + "/" + group.getId()).request().get();
+	assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
+	group = new ObjectMapper().readValue(response.readEntity(String.class), Group.class);
+	assertNotNull(group);
+    }
+
+    /**
+     * Test get with invalid id.
+     */
+    public void testJGetInvalidId() {
+	System.out.println("testJGetInvalidId");
+
+	Response response = target(PATH_GROUPS + "/" + -1).request().get();
+	assertEquals("Should return status 404", Status.NOT_FOUND.getStatusCode(), response.getStatus());
+    }
+
+    /**
+     * Test Delete.
+     */
+    @Test
+    public void testJDelete() {
+	System.out.println("testJDelete");
+
+	Response response = target(PATH_GROUPS + "/" + -1).request().delete();
+	assertEquals("Should return status 404", Status.NOT_FOUND.getStatusCode(), response.getStatus());
+    }
+
+    /**
+     * Delete all groups created for tests.
+     * 
+     * @throws JsonParseException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @Test
+    public void testKDelete() throws JsonParseException, JsonMappingException, IOException {
+	System.out.println("testKDelete");
+	testADelete();
+    }
 
 }

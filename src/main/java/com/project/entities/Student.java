@@ -1,5 +1,6 @@
 package com.project.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -29,7 +30,7 @@ public class Student extends BasicEntity {
     @Column(name = "name_student", length = 100, unique = true, nullable = false)
     private String nameStudent;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "fk_student_group"), nullable = false)
     private Group group;
 
