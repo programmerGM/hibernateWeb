@@ -7,7 +7,7 @@
 		<!--<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property> -->
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate_project?autoReconnect=true&amp;useSSL=false&amp;useTimezone=true&amp;serverTimezone=UTC</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/web_project?autoReconnect=true&amp;useSSL=false&amp;useTimezone=true&amp;serverTimezone=UTC</property>
 		<property name="hibernate.connection.username">hibernate</property>
 		<property name="hibernate.connection.password">hibernate</property>
 		<property name="hibernate.connection.autocommit">false</property>

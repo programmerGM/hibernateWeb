@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * Class Student.
@@ -20,9 +21,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "student")
 @NamedQueries({
-    @NamedQuery(name = "Student.getByName",
-            query = "SELECT s FROM Student s where s.nameStudent = :nameStudent")
-    })
+    @NamedQuery(name = "Student.searchAll", query = "SELECT s FROM Student s"),
+    @NamedQuery(name = "Student.getByName", query = "SELECT s FROM Student s where s.nameStudent = :nameStudent")
+})
 public class Student extends BasicEntity {
 
     private static final long serialVersionUID = 5109956187789284163L;
@@ -30,6 +31,7 @@ public class Student extends BasicEntity {
     @Column(name = "name_student", length = 100, unique = true, nullable = false)
     private String nameStudent;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "fk_student_group"), nullable = false)
     private Group group;
@@ -45,10 +47,20 @@ public class Student extends BasicEntity {
      * @param nameStudent - Nome do estudante.
      */
     public Student(String nameStudent) {
-	super();
 	this.nameStudent = nameStudent;
     }
 
+    /**
+     * Construtor.
+     * 
+     * @param id - Id.
+     * @param nameStudent - Nome do estudante.
+     */
+    public Student(Long id, String nameStudent) {
+	this.setId(id);
+	this.nameStudent = nameStudent;
+    }
+    
     /**
      * Construtor.
      * 
@@ -56,7 +68,6 @@ public class Student extends BasicEntity {
      * @param group = Grupo do estudante.
      */
     public Student(String nameStudent, Group group) {
-	super();
 	this.nameStudent = nameStudent;
 	this.group = group;
     }

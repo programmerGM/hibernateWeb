@@ -89,7 +89,7 @@ public class GroupEndointTest extends JerseyTest {
 	Group group = new Group("Group Test");
 	Response response = target(PATH_GROUPS).request().post(Entity.entity(group, MediaType.APPLICATION_JSON));
 
-	assertEquals("Should return status 201", 201, response.getStatus());
+	assertEquals("Should return status 201", Status.CREATED.getStatusCode(), response.getStatus());
 	assertNotNull("Should return notification", response.getEntity());
 	assertTrue((new ObjectMapper().readValue(response.readEntity(String.class), Group.class)) instanceof Group);
     }
@@ -181,7 +181,7 @@ public class GroupEndointTest extends JerseyTest {
 	group.setNameGroup("Group Teste changed");
 	response = target(PATH_GROUPS).request().put(Entity.entity(group, MediaType.APPLICATION_JSON));
 
-	assertEquals("Should return status 209", Status.ACCEPTED.getStatusCode(), response.getStatus());
+	assertEquals("Should return status 201", Status.ACCEPTED.getStatusCode(), response.getStatus());
     }
 
     /**
