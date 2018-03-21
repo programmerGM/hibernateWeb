@@ -1,6 +1,11 @@
 ## WebProject
 
-Pequena applicação web com tecnologias angularJS, Jersey, JUnit, Hibernate e Mysql.
+Pequena applicação web de um CRUD de grupo de estudantes. 
+tecnologias angularJS, Jersey, JUnit, Hibernate e Mysql.
 
 * <h5>Tecnologias e conceitos utilizados e estudados</h5>
-  - Em andamento. <br />
+   - AngularJS. <br />
+  - Jersey; <br />
+  - JUnit e Jetty framework Jersey test; <br />
+  - Hibernate; <br />
+  - MySQL. <br />
