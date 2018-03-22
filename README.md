@@ -1,7 +1,6 @@
 ## WebProject
 
 Pequena applicação web de um CRUD de grupo de estudantes. 
-tecnologias angularJS, Jersey, JUnit, Hibernate e Mysql.
 
 * <h5>Tecnologias e conceitos utilizados e estudados</h5>
    - AngularJS. <br />
