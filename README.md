@@ -1,6 +1,6 @@
 ## WebProject
 
-Pequena applicação web de um CRUD de grupo de estudantes. 
+Aplicação web de um CRUD de grupo de estudantes. 
 
 * <h5>Tecnologias e conceitos utilizados e estudados</h5>
    - AngularJS. <br />
