@@ -14,36 +14,37 @@ import com.project.entities.Student;
  */
 public class StudentControls extends Controls<StudentDao, Student> {
 
-    /**
-     * Constructor.
-     */
-    public StudentControls() {
-	super(new StudentDao());
-    }
+	/**
+	 * Constructor.
+	 */
+	public StudentControls() {
+		super(new StudentDao());
+	}
 
-    /**
-     * Consulta por ID.
-     */
-    @Override
-    public Student getById(Long id) {
-	return (Student) getDao().getById(Student.class, id);
-    }
+	/**
+	 * Consulta por ID.
+	 */
+	@Override
+	public Student getById(Long id) {
+		return (Student) getDao().getById(Student.class, id);
+	}
 
-    /**
-     * Consulta todos.
-     */
-    @Override
-    public List<Student> getAll() {
-	return getDao().getAll(Student.class.getSimpleName());
-    }
+	/**
+	 * Consulta todos.
+	 */
+	@Override
+	public List<Student> getAll() {
+		return getDao().getAll(Student.class.getSimpleName());
+	}
 
-    /**
-     * Busca o estudante pelo nome.
-     * 
-     * @param name - Nome do estudante.
-     * @return Stufent.
-     */
-    public Student getByName(String name) {
-	return getDao().getByName(name);
-    }
+	/**
+	 * Busca o estudante pelo nome.
+	 * 
+	 * @param name
+	 *            - Nome do estudante.
+	 * @return Stufent.
+	 */
+	public Student getByName(String name) {
+		return getDao().getByName(name);
+	}
 }

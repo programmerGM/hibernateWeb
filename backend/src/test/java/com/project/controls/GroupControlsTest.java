@@ -13,127 +13,157 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import com.project.entities.Group;
+import com.project.entities.Student;
 
 /**
  * Test GroupControls.
  * 
- * @author MaurÃ­cio Generoso.
+ * @author Maurício Generoso.
  * @version 15/03/2018.
  * @version 0.1
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GroupControlsTest {
 
-    private GroupControls groupControls;
+	private StudentControls studentControls;
+	private GroupControls groupControls;
 
-    /**
-     * Construct.
-     */
-    public GroupControlsTest() {
-    }
+	/**
+	 * Construct.
+	 */
+	public GroupControlsTest() {
+	}
 
-    /**
-     * Init tests.
-     */
-    @Before
-    public void init() {
-	groupControls = new GroupControls();
-    }
+	/**
+	 * Init tests.
+	 */
+	@Before
+	public void init() {
+		groupControls = new GroupControls();
+		studentControls = new StudentControls();
+	}
 
-    /**
-     * Test of save.
-     */
-    @Test
-    public void testASave() {
-	System.out.println("testASave");
+	/**
+	 * Test of save.
+	 */
+	@Test
+	public void testASave() {
+		System.out.println("testASave");
 
-	List<Group> groups = Arrays.asList(new Group("Group1"), new Group("Group2"), new Group("Group3"),
-		new Group("Group4"));
+		List<Group> groups = Arrays.asList(new Group("Group1"), new Group("Group2"), new Group("Group3"),
+				new Group("Group4"));
 
-	groups.forEach(g -> {
-	    assertTrue(groupControls.save(g));
-	});
-    }
+		groups.forEach(g -> {
+			assertTrue(groupControls.save(g));
+		});
+	}
 
-    /**
-     * Test of save - duplicate.
-     */
-    @Test
-    public void testBSaveDuplicate() {
-	System.out.println("testBSaveDuplicate");
+	/**
+	 * Test of save - duplicate.
+	 */
+	@Test
+	public void testBSaveDuplicate() {
+		System.out.println("testBSaveDuplicate");
 
-	assertTrue(!groupControls.save(new Group("Group1")));
-    }
+		assertTrue(!groupControls.save(new Group("Group1")));
+	}
 
-    /**
-     * Test update.
-     */
-    @Test
-    public void testCUpdate() {
-	System.out.println("testCUpdate");
+	/**
+	 * Test update.
+	 */
+	@Test
+	public void testCUpdate() {
+		System.out.println("testCUpdate");
 
-	List<Group> groups = groupControls.getAll();
-	assertNotNull(groups);
+		List<Group> groups = groupControls.getAll();
+		assertNotNull(groups);
 
-	Group group = groupControls.getById(groups.get(0).getId());
-	assertNotNull(group);
+		Group group = groupControls.getById(groups.get(0).getId());
+		assertNotNull(group);
 
-	group.setNameGroup("Group1changed");
-	assertTrue(groupControls.save(group));
-	group.setNameGroup("Group1");
-	assertTrue(groupControls.save(group));
-    }
+		group.setNameGroup("Group1changed");
+		assertTrue(groupControls.save(group));
+		group.setNameGroup("Group1");
+		assertTrue(groupControls.save(group));
+	}
 
-    /**
-     * Test get group by id.
-     */
-    @Test
-    public void testDGetById() {
-	System.out.println("testDGetById");
+	/**
+	 * Test get group by id.
+	 */
+	@Test
+	public void testDGetById() {
+		System.out.println("testDGetById");
 
-	List<Group> groups = groupControls.getAll();
-	assertNotNull(groups);
+		List<Group> groups = groupControls.getAll();
+		assertNotNull(groups);
 
-	Group group = groupControls.getById(groups.get(0).getId());
-	assertNotNull(group);
-    }
+		Group group = groupControls.getById(groups.get(0).getId());
+		assertNotNull(group);
+	}
 
-    /**
-     * Test get group by id.
-     */
-    @Test
-    public void testEGetByName() {
-	System.out.println("testGGetByName");
+	/**
+	 * Test get group by id.
+	 */
+	@Test
+	public void testEGetByName() {
+		System.out.println("testGGetByName");
 
-	Group group = groupControls.getByName("Group1");
-	assertNotNull(group);
-	assertEquals(group.getNameGroup(), "Group1");
-    }
+		Group group = groupControls.getByName("Group1");
+		assertNotNull(group);
+		assertEquals(group.getNameGroup(), "Group1");
+	}
 
-    /**
-     * Test get all groups.
-     */
-    @Test
-    public void testFGetAll() {
-	System.out.println("testEGetAll");
+	/**
+	 * Test get all groups.
+	 */
+	@Test
+	public void testFGetAll() {
+		System.out.println("testEGetAll");
 
-	List<Group> groups = groupControls.getAll();
-	assertNotNull(groups);
-    }
+		List<Group> groups = groupControls.getAll();
+		assertNotNull(groups);
+	}
 
-    /**
-     * Test delete.
-     */
-    @Test
-    public void testGDelete() {
-	System.out.println("testGDelete");
+	/**
+	 * Test delete.
+	 */
+	@Test
+	public void testGDelete() {
+		System.out.println("testGDelete");
 
-	List<Group> groups = groupControls.getAll();
+		List<Group> groups = groupControls.getAll();
 
-	assertNotNull(groups);
-	groups.forEach(g -> {
-	    assertTrue(groupControls.delete(g));
-	});
-    }
+		assertNotNull(groups);
+		groups.forEach(g -> {
+			assertTrue(groupControls.delete(g));
+		});
+	}
+
+	/**
+	 * Test delete group with student.
+	 */
+	@Test
+	public void testHDelete() {
+		System.out.println("testHDelete");
+
+		Group group = new Group("Group1");
+
+		assertTrue(groupControls.save(group));
+		assertNotNull(group.getId());
+
+		Student student1 = new Student("Student1", group);
+		Student student2 = new Student("Student2", group);
+
+		assertTrue(studentControls.save(student1));
+		assertTrue(studentControls.save(student2));
+
+		assertTrue(studentControls.delete(student1));
+
+		List<Group> groups = groupControls.getAll();
+		assertNotNull(groups);
+		groups.forEach(g -> {
+			assertTrue(groupControls.delete(g));
+		});
+	}
 
 }

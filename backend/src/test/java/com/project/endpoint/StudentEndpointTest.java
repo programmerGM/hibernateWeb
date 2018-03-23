@@ -37,225 +37,225 @@ import com.project.entities.Student;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class StudentEndpointTest extends JerseyTest {
 
-    private static final String PATH_STUDENTS = Paths.STUDENTS;
-    private static final String PATH_GROUPS = Paths.GROUPS;
+	private static final String PATH_STUDENTS = Paths.STUDENTS;
+	private static final String PATH_GROUPS = Paths.GROUPS;
 
-    /**
-     * Configuration.
-     */
-    @Override
-    public Application configure() {
-	enable(TestProperties.LOG_TRAFFIC);
-	enable(TestProperties.DUMP_ENTITY);
-	return new ResourceConfig(StudentEndpoint.class).register(GroupEndpoint.class);
-    }
-
-    /**
-     * Delete all students and test get all students.
-     * 
-     * @throws IOException
-     * @throws JsonMappingException
-     * @throws JsonParseException
-     */
-    @Test
-    public void testADelete() throws JsonParseException, JsonMappingException, IOException {
-	System.out.println("testADelete");
-
-	Response response = target(PATH_STUDENTS).request().get();
-	if (response.getStatus() == Status.OK.getStatusCode()) {
-	    String listString = response.readEntity(String.class);
-	    List<Student> list = Arrays.asList(new ObjectMapper().readValue(listString, Student[].class));
-
-	    assertNotNull(list);
-	    list.forEach(s -> {
-		Response resp = target(PATH_STUDENTS + "/" + s.getId()).request().delete();
-		assertEquals("Should return status 204", Status.NO_CONTENT.getStatusCode(), resp.getStatus());
-	    });
+	/**
+	 * Configuration.
+	 */
+	@Override
+	public Application configure() {
+		enable(TestProperties.LOG_TRAFFIC);
+		enable(TestProperties.DUMP_ENTITY);
+		return new ResourceConfig(StudentEndpoint.class).register(GroupEndpoint.class);
 	}
-	response = target(PATH_STUDENTS).request().get();
-	assertEquals("Should return status 404", Status.NOT_FOUND.getStatusCode(), response.getStatus());
-    }
 
-    /**
-     * Test create Group.
-     * 
-     * @throws IOException
-     * @throws JsonMappingException
-     * @throws JsonParseException
-     */
-    @Test
-    public void testBPostSave() throws JsonParseException, JsonMappingException, IOException {
-	System.out.println("testBPostSave");
+	/**
+	 * Delete all students and test get all students.
+	 * 
+	 * @throws IOException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
+	 */
+	@Test
+	public void testADelete() throws JsonParseException, JsonMappingException, IOException {
+		System.out.println("testADelete");
 
-	Group group = new Group("Group Test");
-	Response response = target(PATH_GROUPS).request().post(Entity.entity(group, MediaType.APPLICATION_JSON));
+		Response response = target(PATH_STUDENTS).request().get();
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			String listString = response.readEntity(String.class);
+			List<Student> list = Arrays.asList(new ObjectMapper().readValue(listString, Student[].class));
 
-	assertEquals("Should return status 201", Status.CREATED.getStatusCode(), response.getStatus());
-	assertNotNull("Should return notification", response.getEntity());
+			assertNotNull(list);
+			list.forEach(s -> {
+				Response resp = target(PATH_STUDENTS + "/" + s.getId()).request().delete();
+				assertEquals("Should return status 204", Status.NO_CONTENT.getStatusCode(), resp.getStatus());
+			});
+		}
+		response = target(PATH_STUDENTS).request().get();
+		assertEquals("Should return status 404", Status.NOT_FOUND.getStatusCode(), response.getStatus());
+	}
 
-	response = target(PATH_GROUPS + "/name/Group Test").request().get();
-	assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
-	group = new ObjectMapper().readValue(response.readEntity(String.class), Group.class);
+	/**
+	 * Test create Group.
+	 * 
+	 * @throws IOException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
+	 */
+	@Test
+	public void testBPostSave() throws JsonParseException, JsonMappingException, IOException {
+		System.out.println("testBPostSave");
 
-	assertNotNull(group);
-	assertNotNull(group.getId());
+		Group group = new Group("Group Test");
+		Response response = target(PATH_GROUPS).request().post(Entity.entity(group, MediaType.APPLICATION_JSON));
 
-	Student student = new Student("Student Test", group);
-	response = target(PATH_STUDENTS).request().post(Entity.entity(student, MediaType.APPLICATION_JSON));
+		assertEquals("Should return status 201", Status.CREATED.getStatusCode(), response.getStatus());
+		assertNotNull("Should return notification", response.getEntity());
 
-	assertEquals("Should return status 201", Status.CREATED.getStatusCode(), response.getStatus());
-	assertNotNull("Should return notification", response.getEntity());
-    }
+		response = target(PATH_GROUPS + "/name/Group Test").request().get();
+		assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
+		group = new ObjectMapper().readValue(response.readEntity(String.class), Group.class);
 
-    /**
-     * Test create Student - With id.
-     * 
-     * @throws IOException
-     * @throws JsonMappingException
-     * @throws JsonParseException
-     */
-    @Test
-    public void testCPostSaveWithId() throws JsonParseException, JsonMappingException, IOException {
-	System.out.println("testCPostSaveWithId");
+		assertNotNull(group);
+		assertNotNull(group.getId());
 
-	Student student = new Student(1L, "Student Test");
-	Response response = target(PATH_STUDENTS).request().post(Entity.entity(student, MediaType.APPLICATION_JSON));
+		Student student = new Student("Student Test", group);
+		response = target(PATH_STUDENTS).request().post(Entity.entity(student, MediaType.APPLICATION_JSON));
 
-	assertEquals("Should return status 400", Status.BAD_REQUEST.getStatusCode(), response.getStatus());
-	assertNotNull("Should return student", response.getEntity());
-    }
+		assertEquals("Should return status 201", Status.CREATED.getStatusCode(), response.getStatus());
+		assertNotNull("Should return notification", response.getEntity());
+	}
 
-    /**
-     * Test create Student - Duplicate.
-     */
-    @Test
-    public void testDPostSaveDuplicate() {
-	System.out.println("testDPostSaveDuplicate");
+	/**
+	 * Test create Student - With id.
+	 * 
+	 * @throws IOException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
+	 */
+	@Test
+	public void testCPostSaveWithId() throws JsonParseException, JsonMappingException, IOException {
+		System.out.println("testCPostSaveWithId");
 
-	Student student = new Student("Student Test");
-	Response response = target(PATH_STUDENTS).request().post(Entity.entity(student, MediaType.APPLICATION_JSON));
-	assertEquals("Should return status 209", Status.CONFLICT.getStatusCode(), response.getStatus());
-    }
+		Student student = new Student(1L, "Student Test");
+		Response response = target(PATH_STUDENTS).request().post(Entity.entity(student, MediaType.APPLICATION_JSON));
 
-    /**
-     * Test Update without id.
-     */
-    @Test
-    public void testEUpdateWithoutId() {
-	System.out.println("testEUpdateWithoutId");
+		assertEquals("Should return status 400", Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+		assertNotNull("Should return student", response.getEntity());
+	}
 
-	Student student = new Student("Student Test");
-	Response response = target(PATH_STUDENTS).request().put(Entity.entity(student, MediaType.APPLICATION_JSON));
-	assertEquals("Should return status 400", Status.BAD_REQUEST.getStatusCode(), response.getStatus());
-    }
+	/**
+	 * Test create Student - Duplicate.
+	 */
+	@Test
+	public void testDPostSaveDuplicate() {
+		System.out.println("testDPostSaveDuplicate");
 
-    /**
-     * Test Update not found.
-     */
-    @Test
-    public void testFUpdateNotFound() {
-	System.out.println("testFUpdateNotFound");
+		Student student = new Student("Student Test");
+		Response response = target(PATH_STUDENTS).request().post(Entity.entity(student, MediaType.APPLICATION_JSON));
+		assertEquals("Should return status 209", Status.CONFLICT.getStatusCode(), response.getStatus());
+	}
 
-	Student student = new Student(-1L, "Student Test");
-	Response response = target(PATH_STUDENTS).request().put(Entity.entity(student, MediaType.APPLICATION_JSON));
-	assertEquals("Should return status 400", Status.BAD_REQUEST.getStatusCode(), response.getStatus());
-    }
+	/**
+	 * Test Update without id.
+	 */
+	@Test
+	public void testEUpdateWithoutId() {
+		System.out.println("testEUpdateWithoutId");
 
-    /**
-     * Test Update duplicate.
-     * 
-     * @throws IOException
-     * @throws JsonMappingException
-     * @throws JsonParseException
-     */
-    @Test
-    public void testGUpdateDuplicate() throws JsonParseException, JsonMappingException, IOException {
-	System.out.println("testGUpdateDuplicate");
+		Student student = new Student("Student Test");
+		Response response = target(PATH_STUDENTS).request().put(Entity.entity(student, MediaType.APPLICATION_JSON));
+		assertEquals("Should return status 400", Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+	}
 
-	Response response = target(PATH_STUDENTS + "/name/Student Test").request().get();
-	assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
-	Student student = new ObjectMapper().readValue(response.readEntity(String.class), Student.class);
-	assertNotNull(student);
+	/**
+	 * Test Update not found.
+	 */
+	@Test
+	public void testFUpdateNotFound() {
+		System.out.println("testFUpdateNotFound");
 
-	response = target(PATH_STUDENTS).request().put(Entity.entity(student, MediaType.APPLICATION_JSON));
-	assertEquals("Should return status 409", Status.CONFLICT.getStatusCode(), response.getStatus());
-    }
+		Student student = new Student(-1L, "Student Test");
+		Response response = target(PATH_STUDENTS).request().put(Entity.entity(student, MediaType.APPLICATION_JSON));
+		assertEquals("Should return status 400", Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+	}
 
-    /**
-     * Test Update and get by name.
-     * 
-     * @throws IOException
-     * @throws JsonMappingException
-     * @throws JsonParseException
-     */
-    @Test
-    public void testHUpdate() throws JsonParseException, JsonMappingException, IOException {
-	System.out.println("testHUpdate");
+	/**
+	 * Test Update duplicate.
+	 * 
+	 * @throws IOException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
+	 */
+	@Test
+	public void testGUpdateDuplicate() throws JsonParseException, JsonMappingException, IOException {
+		System.out.println("testGUpdateDuplicate");
 
-	Response response = target(PATH_STUDENTS + "/name/Student Test").request().get();
-	assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
-	Student student = new ObjectMapper().readValue(response.readEntity(String.class), Student.class);
-	assertNotNull(student);
+		Response response = target(PATH_STUDENTS + "/name/Student Test").request().get();
+		assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
+		Student student = new ObjectMapper().readValue(response.readEntity(String.class), Student.class);
+		assertNotNull(student);
 
-	student.setNameStudent("Student Test changed");
-	response = target(PATH_STUDENTS).request().put(Entity.entity(student, MediaType.APPLICATION_JSON));
+		response = target(PATH_STUDENTS).request().put(Entity.entity(student, MediaType.APPLICATION_JSON));
+		assertEquals("Should return status 409", Status.CONFLICT.getStatusCode(), response.getStatus());
+	}
 
-	assertEquals("Should return status 201", Status.ACCEPTED.getStatusCode(), response.getStatus());
-    }
+	/**
+	 * Test Update and get by name.
+	 * 
+	 * @throws IOException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
+	 */
+	@Test
+	public void testHUpdate() throws JsonParseException, JsonMappingException, IOException {
+		System.out.println("testHUpdate");
 
-    /**
-     * Test Update and get by name.
-     * 
-     * @throws IOException
-     * @throws JsonMappingException
-     * @throws JsonParseException
-     */
-    @Test
-    public void testIGet() throws JsonParseException, JsonMappingException, IOException {
-	System.out.println("testIGet");
+		Response response = target(PATH_STUDENTS + "/name/Student Test").request().get();
+		assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
+		Student student = new ObjectMapper().readValue(response.readEntity(String.class), Student.class);
+		assertNotNull(student);
 
-	Response response = target(PATH_STUDENTS + "/name/Student Test changed").request().get();
-	assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
-	Student student = new ObjectMapper().readValue(response.readEntity(String.class), Student.class);
-	assertNotNull(student);
+		student.setNameStudent("Student Test changed");
+		response = target(PATH_STUDENTS).request().put(Entity.entity(student, MediaType.APPLICATION_JSON));
 
-	response = target(PATH_STUDENTS + "/" + student.getId()).request().get();
-	assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
-	student = new ObjectMapper().readValue(response.readEntity(String.class), Student.class);
-	assertNotNull(student);
-    }
+		assertEquals("Should return status 201", Status.ACCEPTED.getStatusCode(), response.getStatus());
+	}
 
-    /**
-     * Test get with invalid id.
-     */
-    public void testJGetInvalidId() {
-	System.out.println("testJGetInvalidId");
+	/**
+	 * Test Update and get by name.
+	 * 
+	 * @throws IOException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
+	 */
+	@Test
+	public void testIGet() throws JsonParseException, JsonMappingException, IOException {
+		System.out.println("testIGet");
 
-	Response response = target(PATH_STUDENTS + "/" + -1).request().get();
-	assertEquals("Should return status 404", Status.NOT_FOUND.getStatusCode(), response.getStatus());
-    }
+		Response response = target(PATH_STUDENTS + "/name/Student Test changed").request().get();
+		assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
+		Student student = new ObjectMapper().readValue(response.readEntity(String.class), Student.class);
+		assertNotNull(student);
 
-    /**
-     * Test Delete.
-     */
-    @Test
-    public void testJDelete() {
-	System.out.println("testJDelete");
+		response = target(PATH_STUDENTS + "/" + student.getId()).request().get();
+		assertEquals("Should return status 200", Status.OK.getStatusCode(), response.getStatus());
+		student = new ObjectMapper().readValue(response.readEntity(String.class), Student.class);
+		assertNotNull(student);
+	}
 
-	Response response = target(PATH_STUDENTS + "/" + -1).request().delete();
-	assertEquals("Should return status 404", Status.NOT_FOUND.getStatusCode(), response.getStatus());
-    }
+	/**
+	 * Test get with invalid id.
+	 */
+	public void testJGetInvalidId() {
+		System.out.println("testJGetInvalidId");
 
-    /**
-     * Delete all students created for tests.
-     * 
-     * @throws JsonParseException
-     * @throws JsonMappingException
-     * @throws IOException
-     */
-    @Test
-    public void testKDelete() throws JsonParseException, JsonMappingException, IOException {
-	System.out.println("testKDelete");
-	testADelete();
-    }
+		Response response = target(PATH_STUDENTS + "/" + -1).request().get();
+		assertEquals("Should return status 404", Status.NOT_FOUND.getStatusCode(), response.getStatus());
+	}
+
+	/**
+	 * Test Delete.
+	 */
+	@Test
+	public void testJDelete() {
+		System.out.println("testJDelete");
+
+		Response response = target(PATH_STUDENTS + "/" + -1).request().delete();
+		assertEquals("Should return status 404", Status.NOT_FOUND.getStatusCode(), response.getStatus());
+	}
+
+	/**
+	 * Delete all students created for tests.
+	 * 
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
+	@Test
+	public void testKDelete() throws JsonParseException, JsonMappingException, IOException {
+		System.out.println("testKDelete");
+		testADelete();
+	}
 }
