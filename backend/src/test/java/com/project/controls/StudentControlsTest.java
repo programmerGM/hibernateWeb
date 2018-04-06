@@ -19,7 +19,7 @@ import com.project.entities.Student;
 /**
  * Test methods of controls student.
  * 
- * @author Mauricio Generoso.
+ * @author Maurício Generoso.
  * @since 14/03/2018
  * @version 0.1
  */

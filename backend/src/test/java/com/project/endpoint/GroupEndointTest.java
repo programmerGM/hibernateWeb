@@ -31,7 +31,7 @@ import com.project.entities.Student;
 /**
  * Test Endpoint Group.
  * 
- * @author Mauricio Generoso.
+ * @author Maurício Generoso.
  * @since 16/03/2018.
  * @version 0.1
  */

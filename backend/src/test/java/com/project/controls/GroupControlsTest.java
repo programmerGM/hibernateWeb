@@ -18,7 +18,7 @@ import com.project.entities.Student;
 /**
  * Test GroupControls.
  * 
- * @author Maurício Generoso.
+ * @author MaurÃ­cio Generoso.
  * @version 15/03/2018.
  * @version 0.1
  */

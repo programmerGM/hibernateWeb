@@ -23,7 +23,7 @@ import com.project.entities.Student;
 /**
  * REST Web Service - Student.
  *
- * @author Mauricio Generoso
+ * @author Maurício Generoso
  * @since 20/03/2018
  * @version 0.1
  */

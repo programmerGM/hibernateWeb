@@ -11,7 +11,7 @@ import javax.persistence.MappedSuperclass;
 /**
  * Generic Class with ID for the entities.
  *
- * @author Mauricio Generoso.
+ * @author Maurício Generoso.
  * @since 09/08/2018.
  * @version 0.1.
  */

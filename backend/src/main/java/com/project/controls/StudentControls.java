@@ -8,7 +8,7 @@ import com.project.entities.Student;
 /**
  * Student controls.
  * 
- * @author Mauricio Generoso.
+ * @author Maurício Generoso.
  * @since 14/03/2018.
  * @version 0.1
  */

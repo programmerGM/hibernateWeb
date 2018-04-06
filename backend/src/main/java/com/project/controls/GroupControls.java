@@ -8,7 +8,7 @@ import com.project.entities.Group;
 /**
  * GroupControls.
  * 
- * @author Maurício Generoso.
+ * @author MaurÃ­cio Generoso.
  * @since 15/03/2018.
  * @version 0.1
  */

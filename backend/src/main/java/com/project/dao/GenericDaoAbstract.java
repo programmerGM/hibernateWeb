@@ -16,7 +16,7 @@ import com.project.entities.BasicEntity;
  * utilizarão este método, logo, os Dao's que o utilizam deverão fazer
  * "sobreescrita de método".
  *
- * @author Mauricio Generoso
+ * @author Maurício Generoso
  * @param <T>
  *            - Classe genérica que fará a persistência
  * @since 09/03/2018

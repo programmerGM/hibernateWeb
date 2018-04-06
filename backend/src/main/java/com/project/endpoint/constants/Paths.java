@@ -3,7 +3,7 @@ package com.project.endpoint.constants;
 /**
  * Paths constants.
  * 
- * @author Mauricio Generoso.
+ * @author Maurício Generoso.
  * @since 18/03/2018.
  * @version 0.1
  */

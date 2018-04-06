@@ -7,7 +7,7 @@ import com.project.conection.HibernateUtil;
 /**
  * Test conection with database Mysql.
  *
- * @author Mauricio Generoso.
+ * @author Maurício Generoso.
  * @since 09/03/2018.
  * @version 0.1
  */

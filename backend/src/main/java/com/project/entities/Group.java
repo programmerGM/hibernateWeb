@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * Entity Group.
  * 
- * @author Mauricio Generoso.
+ * @author Maurício Generoso.
  * @since 09/03/2018.
  * @version 0.1
  */

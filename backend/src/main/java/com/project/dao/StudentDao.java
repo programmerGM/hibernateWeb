@@ -9,7 +9,7 @@ import com.project.entities.Student;
 /**
  * StudentDao.
  * 
- * @author Maurício Generoso.
+ * @author MaurÃ­cio Generoso.
  * @since 14/03/2018.
  * @version 0.1
  */

@@ -8,7 +8,7 @@ import com.project.entities.BasicEntity;
 /**
  * Abstract class with methods commons in control classes.
  *
- * @author Mauricio Generoso.
+ * @author Maurício Generoso.
  * @param <D>
  *            - Object dao.
  * @param <T>

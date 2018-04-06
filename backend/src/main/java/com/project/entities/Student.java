@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Class Student.
  * 
- * @author Mauricio Generoso.
+ * @author Maurício Generoso.
  * @since 09/03/2018.
  * @version 0.1
  */

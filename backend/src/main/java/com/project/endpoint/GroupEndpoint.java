@@ -23,7 +23,7 @@ import com.project.entities.Group;
 /**
  * REST Web Service - Group.
  *
- * @author Mauricio Generoso
+ * @author Maurício Generoso
  * @since 16/03/2018
  * @version 0.1
  */

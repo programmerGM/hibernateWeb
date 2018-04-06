@@ -7,7 +7,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 /**
  * Class configuration Jersey.
  * 
- * @author Maurício Generoso.
+ * @author MaurÃ­cio Generoso.
  * @since 18/03/2018.
  * @version 0.1
  */
