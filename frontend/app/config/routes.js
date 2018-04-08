@@ -4,11 +4,15 @@
         '$urlRouterProvider',
         '$httpProvider',
         ($stateProvider, $urlRouterProvider, $httpProvider) => {
-            $stateProvider.state('init', {
-                url: '/init',
-                templateUrl: '../init.html'
+            $stateProvider.state('home', {
+                url: '/',
+                templateUrl: '../groups/home.html'
+            }).state('form', {
+                url: '/groups',
+                temmplateUrl: '../groups/form.html' 
             })
-            $urlRouterProvider.otherwise('/init')
+
+            $urlRouterProvider.otherwise('/')
         }
     ])
 })()
