@@ -1,5 +1,5 @@
 angular.module('webProject', [
-    'ui.router',
-    'ngAnimate',
-    'toastr'
+  'ui.router',
+  'ngAnimate',
+  'toastr'
 ])
