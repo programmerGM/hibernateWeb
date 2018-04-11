@@ -1,11 +1,11 @@
-<section class="content">
+<section class="content" ng-controller="HomeController as hCtrl">
   <div class="box">
     <div class="box-header with-border">
       <div class="box-title">Adicionar um novo grupo</div>
     </div>
     <div class="box-body">
       <div role="form">
-        <div class="box-body" ng-controller="HomeController as hCtrl">
+        <div class="box-body">
           <field id="name" label="Nome" grid="12 6 4" placeholder="Informe nome do Grupo" model="hCtrl.groups.nameGroup" readonly="false"></field>
         </div>
       </div>
@@ -26,8 +26,8 @@
 
     </div>
     <div class="box-footer">
-      <button type="submit" class="btn btn-default">Cancelar</button>
-      <button type="submit" class="btn btn-success pull-right">Salvar</button>
+      <button type="submit" class="btn btn-default" ng-click="hCtrl.refresh()">Cancelar</button>
+      <button type="submit" class="btn btn-success pull-right" ng-click="hCtrl.save()">Salvar</button>
     </div>
   </div>
 </section>

@@ -3,7 +3,7 @@
     appName: 'Web Project',
     version: '1.0',
     owner: 'Maurício Generoso',
-    apiUrl: 'http://localhost:8080',
+    apiUrl: 'http://localhost:3000',
     apiUrlGroups: '/groups'
   }).run([
     '$rootScope',

@@ -1,4 +1,4 @@
-<div class="box">
+<div class="box" ng-controller="HomeController as hCtrl">
   <div class="box-header with-border">
     <div class="box-title">Grupos</div>
   </div>
@@ -11,16 +11,16 @@
           <th>Excluir</th>
         </tr>
       </thead>
-      <tbody ng-controller="HomeController as hCtrl">
-        <tr ng-repeat="groups in hCtrl.groups">
-          <td>{{:: groups.nameGroup }}</td>
+      <tbody>
+        <tr ng-repeat="group in hCtrl.getAll()">
+          <td>{{:: group.nameGroup }}</td>
           <td class="table-actions">
             <button class="btn btn-warning btn-xs">
               <i class="fa fa-pencil"></i>
             </button>
           </td>
           <td class="table-actions">
-            <button class="btn btn-danger btn-xs">
+            <button class="btn btn-danger btn-xs" ng-click="hCtrl.delete($index, group)">
               <i class="fa fa-trash-o"></i>
             </button>
           </td>
@@ -30,7 +30,7 @@
   </div>
   <div class="box-footer clearfix">
     <div class="pull-left hidden-xs">
-      <button class="btn btn-block btn-success btn-sm">
+      <button class="btn btn-block btn-success btn-sm" ng-click="hCtrl.redirectNewGroup()">
         <i class="glyphicon glyphicon-plus"></i> Adicionar
       </button>
     </div>

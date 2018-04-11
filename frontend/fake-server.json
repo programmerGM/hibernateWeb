@@ -1,0 +1,58 @@
+{
+  "groups": [
+    {
+      "id": 1,
+      "nameGroup": "Group1",
+      "students": [
+        {
+          "id": 1,
+          "nameStudent": "Student1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "nameGroup": "Group2",
+      "students": [
+        {
+          "id": 2,
+          "nameStudent": "Student2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "nameGroup": "Group3",
+      "students": [
+        {
+          "id": 3,
+          "nameStudent": "Student3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "nameGroup": "Group4",
+      "students": [
+        {
+          "id": 4,
+          "nameStudent": "Student4"
+        },
+        {
+          "id": 5,
+          "nameStudent": "Student5"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "nameGroup": "Group5",
+      "students": [
+        {
+          "id": 6,
+          "nameStudent": "Student6"
+        }
+      ]
+    }
+  ]
+}
