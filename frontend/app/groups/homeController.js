@@ -12,9 +12,9 @@
 
     vm.list = () => {
       console.log('List antes')
-      GroupService.list().then((groups) => {
-        vm.groups = groups
-      })
+      // GroupService.list().then((groups) => {
+      //   vm.groups = groups
+      // })
       console.log('List depois')
     }
 

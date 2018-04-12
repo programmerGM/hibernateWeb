@@ -10,6 +10,7 @@ gulp.task('deps.js', () => {
             'node_modules/angular/angular.min.js',
             'node_modules/angular-ui-router/release/angular-ui-router.min.js',
             'node_modules/angular-animate/angular-animate.min.js',
+            //'node_modules/angular-resource/angular-resource.min.js',
             'node_modules/angular-toastr/dist/angular-toastr.tpls.min.js',
             'node_modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js',
             'node_modules/admin-lte/bootstrap/js/bootstrap.min.js',

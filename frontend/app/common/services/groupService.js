@@ -2,7 +2,7 @@
   'use stricts'
 
   angular.module('webProject').service('GroupService', [
-    // 'GroupFactory',
+    'GroupFactory',
     GroupService
   ])
 
@@ -19,14 +19,14 @@
 
     vm.save = (group) => {
       //if (group.id) {
-       // return GroupFactory.atualizar({ id: group.id }, group).$promise;
+      // return GroupFactory.atualizar({ id: group.id }, group).$promise;
       //} else {
       //  return GroupFactory.save(group).$promise;
-     // }
+      // }
     }
 
-   vm.excluir = (group) => {
-    //  return GroupFactory.delete({ id: group.id }).$promise;
+    vm.excluir = (group) => {
+      //  return GroupFactory.delete({ id: group.id }).$promise;
     }
   }
 })()

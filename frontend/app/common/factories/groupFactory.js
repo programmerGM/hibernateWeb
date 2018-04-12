@@ -2,14 +2,17 @@
   'use stricts'
 
   angular.module('webProject').factory('GroupFactory', [
-    // '$http',
-    // 'consts',
+    '$http',
+    'consts',
     GroupFactory
   ])
 
   function GroupFactory($http, consts) {
+    const vm = this
 
-    // Requisições com $http
+    vm.list = () => {
+      $http.get(`${conts.apiUrl}/${consts.apiUrlGroup}`)
+    }
     
   }
 })
