@@ -1,18 +1,32 @@
 (() => {
-  'use stricts'
+  'use strict'
 
   angular.module('webProject').factory('GroupFactory', [
     '$http',
-    'consts',
     GroupFactory
   ])
 
-  function GroupFactory($http, consts) {
-    const vm = this
+  function GroupFactory($http) {
 
-    vm.list = () => {
-      $http.get(`${conts.apiUrl}/${consts.apiUrlGroup}`)
+    const API = 'http://localhost:3000'
+    const API_GROUPS = API + '/groups'
+
+    function list() {
+      $http.get(API_GROUPS).then(response => {
+        return response.data
+      }).catch(response => {
+        return null
+      })
     }
-    
+
+    function findById(id) {
+      $http.get(API_GROUPS + '/' + id).then(response => {
+        return response.data
+      }).catch(response => {
+        return null
+      })
+    }
+
+    return { list, findById }
   }
-})
+})()
